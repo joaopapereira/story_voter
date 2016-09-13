@@ -1,6 +1,6 @@
 var StoryVotterApp = React.createClass({
   getInitialState: function() {
-    return {projects: this.state.projects, text: ''};
+    return {projects: this.props.data, text: ''};
   },
   onChange: function(e) {
     this.setState({text: e.target.value});
