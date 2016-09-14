@@ -1,7 +1,5 @@
-require 'test_helper'
+require 'rails_helper'
 
-class UserStoriesControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+RSpec.describe UserStoriesController, type: :controller  do
+
 end

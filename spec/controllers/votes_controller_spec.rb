@@ -1,7 +1,5 @@
-require 'test_helper'
+require 'rails_helper'
 
-class VotesControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+RSpec.describe VotesController, type: :controller  do
+
 end

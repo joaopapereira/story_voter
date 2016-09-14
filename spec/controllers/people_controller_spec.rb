@@ -1,7 +1,5 @@
-require 'test_helper'
+require 'rails_helper'
 
-class PeopleControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+RSpec.describe PeopleController, type: :controller  do
+
 end

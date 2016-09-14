@@ -50,7 +50,9 @@ gem 'bootstrap', '~> 4.0.0.alpha4'
 gem 'react-rails', '~>1.4.0'
 gem 'react-router-rails', '~>0.13.3.2'
 group :development, :test do
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'shoulda'
 end
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
