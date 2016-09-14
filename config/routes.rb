@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   get 'main/index'
 
   resources :votes
-  resources :user_stories
+
   resources :people
-  resources :projects
+  resources :projects do
+      resources :user_stories
+  end
   root 'main#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

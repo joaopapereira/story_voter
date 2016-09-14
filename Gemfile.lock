@@ -123,16 +123,16 @@ GEM
     rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
-    react-rails (1.8.2)
+    react-rails (1.4.2)
       babel-transpiler (>= 0.7.0)
       coffee-script-source (~> 1.8)
       connection_pool
       execjs
-      railties (>= 3.2)
+      rails (>= 3.2)
       tilt
-    react-router-rails (0.13.3.1)
+    react-router-rails (0.13.3.2)
       rails (>= 3.1)
-      react-rails (>= 0.12)
+      react-rails (~> 1.4.0)
     rspec-core (3.5.3)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -199,8 +199,8 @@ DEPENDENCIES
   jquery-rails
   rails (= 5.0.0)
   rails-assets-tether (>= 1.1.0)!
-  react-rails
-  react-router-rails
+  react-rails (~> 1.4.0)
+  react-router-rails (~> 0.13.3.2)
   rspec-rails (~> 3.5)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
