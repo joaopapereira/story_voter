@@ -6,6 +6,7 @@ class Person < ApplicationRecord
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       user.name = auth["info"]["name"]
+      user.username = auth["info"]["nickname"]
     end
   end
 end
