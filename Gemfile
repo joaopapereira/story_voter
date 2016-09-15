@@ -53,7 +53,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'shoulda'
-  gem 'jasmine-rails'
 end
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

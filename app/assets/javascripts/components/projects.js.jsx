@@ -7,7 +7,7 @@ var Projects = React.createClass({
   componentDidMount: function() {
     var component = this;
     this.serverRequest = $.get('/projects/', function (result) {
-      var projects = result;
+      var projects = result.projects;
       component.setState({
         allprojects: projects
       });
