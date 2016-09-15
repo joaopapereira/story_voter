@@ -8,11 +8,14 @@ var App = React.createClass({
       url: "/auth/signedin.json"
     })
     .done(function(data){
-      this.setState({ signedIn: data.signed_in });
+      this.setState({ signedIn: data.signed_in, user: data.user, app: this });
     }.bind(this));
   },
   getInitialState: function() {
-    return { signedIn: null };
+    return { signedIn: null, user: null };
+  },
+  logout: function() {
+      this.setState({ signedIn: null, user: null, app: this });
   },
   render: function() {
     return (
@@ -24,7 +27,7 @@ var App = React.createClass({
               <Link to='/'>Projects</Link>
             </li>
             <li>
-              <SignIn />
+              <SignIn signedIn={this.state.signedIn} user={this.state.user} app={this}/>
             </li>
           </ul>
         </nav>

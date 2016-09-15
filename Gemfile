@@ -52,6 +52,7 @@ gem 'react-rails', '~>1.4.0'
 gem 'react-router-rails', '~>0.13.3.2'
 gem 'omniauth-github'
 gem 'figaro'
+gem 'octokit'
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
