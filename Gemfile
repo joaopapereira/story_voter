@@ -46,9 +46,12 @@ group :development do
 end
 
 
+gem 'jwt'
 gem 'bootstrap', '~> 4.0.0.alpha4'
 gem 'react-rails', '~>1.4.0'
 gem 'react-router-rails', '~>0.13.3.2'
+gem 'omniauth-github'
+gem 'figaro'
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
@@ -57,3 +60,4 @@ end
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
+gem 'browserify-rails', '~>0.5'

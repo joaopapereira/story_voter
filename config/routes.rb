@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'auth/signedin'
+
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   get 'main/index'
 
@@ -9,6 +11,8 @@ Rails.application.routes.draw do
       resources :user_stories
   end
   root 'main#index'
+  get "/auth/:provider/callback" => "sessions#create"
+  get "/signout" => "sessions#destroy", :as => :signout
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
