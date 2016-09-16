@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   resources :votes
 
   resources :people
-  resources :projects do
-      resources :user_stories
+  resources :projects, :defaults => { :format => 'json' } do
+      resources :user_stories, :defaults => { :format => 'json' }
   end
   root 'main#index'
   get "/auth/:provider/callback" => "sessions#create"
