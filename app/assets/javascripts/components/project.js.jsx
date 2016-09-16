@@ -10,6 +10,7 @@ var Project = React.createClass({
     return (
       <tr>
           <td>{project.name}</td>
+          <td>{project.num_of_user_stories}</td>
       </tr>
     );
   }

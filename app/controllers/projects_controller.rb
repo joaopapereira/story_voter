@@ -4,6 +4,6 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @projects = Project.new_projects current_user
+    @projects = Github.new_projects current_user
   end
 end

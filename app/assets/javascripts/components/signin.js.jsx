@@ -3,6 +3,7 @@ var SignIn = React.createClass({
     this.serverRequest = $.get("/person/" + this.state.user, function (result) {
       person = result.person;
       userStories = result.userStories;
+      app.setSate({signedIn: this.state.signedIn})
       this.setState({
         signedIn: this.state.signedIn,
         person: person
@@ -30,6 +31,7 @@ var SignIn = React.createClass({
         person: null
       });
     }.bind(this));
+    return false;
   },
   render: function() {
     if(this.state.signedIn === null || this.state.signedIn == false) {
@@ -41,7 +43,7 @@ var SignIn = React.createClass({
 
       return (
         <div>
-          {this.state.user.name}, <a onClick={this.logout}>logout</a>
+          {this.state.user.name}, <Link to="/" onClick={this.logout}>logout</Link>
         </div>
       );
     }

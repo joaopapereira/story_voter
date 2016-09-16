@@ -6,10 +6,10 @@ class GithubService
   end
   def get_all_projects person
     connection = connect
-    all_projects = connection.repos(person)
+    all_projects = connection.repos(person.username)
     result = []
     all_projects.each do |project|
-      result << Github.to_project project
+      result << Github.to_project(project)
     end
     result
   end

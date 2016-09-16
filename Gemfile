@@ -53,6 +53,8 @@ gem 'react-router-rails', '~>0.13.3.2'
 gem 'omniauth-github'
 gem 'figaro'
 gem 'octokit'
+gem "font-awesome-rails"
+gem 'react-bootstrap-rails'
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'

@@ -1,13 +1,13 @@
 class Github
   include ActiveModel::Model
-  def self.all_project person
+  def self.all_projects person
     projects = GithubService.new.get_all_projects person
   end
 
   def self.new_projects person
     result = []
-    all_projects(projects).each do |project|
-      result << project if Project.find_by_repo_name(project.repo_name).len == 0
+    all_projects(person).each do |project|
+      result << project if Project.find_by_repo_name(project.repo_name).nil?
     end
     result
   end
