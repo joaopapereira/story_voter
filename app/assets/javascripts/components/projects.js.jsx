@@ -121,7 +121,6 @@ var Projects = React.createClass({
     projects = this.state.allprojects || [];
     return (
       <div className="row">
-        <div id="alerts"></div>
         <h5>Projects</h5>
         <div ref="dest">
           <Button onClick={this.open} >

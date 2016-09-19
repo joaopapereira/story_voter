@@ -18,7 +18,7 @@ RSpec.describe UserStoriesController, type: :controller  do
       let!(:project3) {FactoryGirl.create(:project, {:id => 3, :name => "project3", :repo_name => "testing3/test"})}
       let!(:user_story1) {FactoryGirl.create(:user_story, {:id => 1, :project => project1, :identifier => "123"})}
       let!(:user_story2) {FactoryGirl.create(:user_story, {:id => 2, :project => project1, :identifier => "1"})}
-      let!(:user_story3) {FactoryGirl.create(:user_story, {:id => 3, :project => project2, :identifier => "12"})}
+      let!(:user_story3) {FactoryGirl.create(:user_story, {:id => 3, :project => project2, :identifier => "12", :title => "My title", :votes => [], :url => "http://places/1"})}
       render_views
       context "with stories" do
         before(:each) do
@@ -29,7 +29,7 @@ RSpec.describe UserStoriesController, type: :controller  do
         end
         it "json response" do
           expected = {:project => {:id => 2, :name => "project2", :repo_name => "testing1/test", :num_of_user_stories => 1},
-                       :user_stories => [{:id => 3, :identifier => "12"}]}
+                       :user_stories => [{:id => 3, :identifier => "12", :title => "My title", :url => "http://places/1", :votes => []}]}
           expect(response.body).to eq(expected.to_json)
         end
       end
