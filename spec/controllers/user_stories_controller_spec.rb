@@ -28,7 +28,7 @@ RSpec.describe UserStoriesController, type: :controller  do
           expect(response).to have_http_status(200)
         end
         it "json response" do
-          expected = {:project => {:id => 2, :name => "project2", :repo_name => "testing1/test"},
+          expected = {:project => {:id => 2, :name => "project2", :repo_name => "testing1/test", :num_of_user_stories => 1},
                        :user_stories => [{:id => 3, :identifier => "12"}]}
           expect(response.body).to eq(expected.to_json)
         end
@@ -41,7 +41,7 @@ RSpec.describe UserStoriesController, type: :controller  do
           expect(response).to have_http_status(200)
         end
         it "json response" do
-          expected = {:project => {:id => 3, :name => "project3", :repo_name => "testing3/test"},
+          expected = {:project => {:id => 3, :name => "project3", :repo_name => "testing3/test", :num_of_user_stories => 0},
                        :user_stories => []}
           expect(response.body).to eq(expected.to_json)
         end

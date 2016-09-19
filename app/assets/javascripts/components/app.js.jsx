@@ -35,6 +35,7 @@ var App = React.createClass({
           </ul>
         </nav>
         <div className="container">
+          <div id="alerts"></div>
           <RouteHandler {...this.props} signedIn={this.state.signedIn} user={this.state.user}/>
         </div>
       </div>

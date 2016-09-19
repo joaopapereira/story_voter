@@ -4,11 +4,12 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   get 'main/index'
 
-  resources :votes
 
   resources :people
   resources :projects, :defaults => { :format => 'json' } do
-      resources :user_stories, :defaults => { :format => 'json' }
+      resources :user_stories, :defaults => { :format => 'json' } do
+          resources :votes, :defaults => { :format => 'json' }, only: [:create]
+      end
   end
   root 'main#index'
   get "/auth/:provider/callback" => "sessions#create"

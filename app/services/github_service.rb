@@ -13,4 +13,27 @@ class GithubService
     end
     result
   end
+
+  def get_all_open_issues project
+    result = []
+    num_open_issues = 1
+    current_page = 1
+    while num_open_issues != 0
+      issues = get_one_page_open_issues project, current_page
+      current_page += 1
+      num_open_issues = issues.length
+      result = result + issues
+    end
+    result
+  end
+  private
+  def get_one_page_open_issues project, page
+    connection = connect
+    all_issues = connection.list_issues(project.repo_name, {:state => "open", :page => page})
+    result = []
+    all_issues.each do |user_story|
+      result << Github.to_user_story(project, user_story)
+    end
+    result
+  end
 end

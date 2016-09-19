@@ -36,7 +36,7 @@ var SignIn = React.createClass({
   render: function() {
     if(this.state.signedIn === null || this.state.signedIn == false) {
       return (
-          <a href="/auth/github">Sign In with GitHub</a>
+          <a href="/auth/github" className="btn btn-outline-info">Sign In with <img src="/assets/GitHub-Mark-32px.png"/></a>
       );
     }
     else {

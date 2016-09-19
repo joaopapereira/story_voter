@@ -9,7 +9,7 @@ var Popover = ReactBootstrap.Popover;
 var ProjectsSelect = React.createClass({
   getInitialState: function() {
     return {
-      signedIn: this.props.allprojects,
+      signedIn: this.props.signedIn,
       showModal: false,
       showAddToolTip: false
     };
@@ -69,7 +69,7 @@ var Projects = React.createClass({
       project_select: null
     };
   },
-  componentDidMount: function() {
+  loadProjects: function() {
     var component = this;
     this.serverRequest = $.get('/projects/', function (result) {
       var projects = result.projects;
@@ -77,6 +77,10 @@ var Projects = React.createClass({
         allprojects: projects
       });
     }.bind(this));
+
+  },
+  componentDidMount: function() {
+    this.loadProjects();
   },
   close: function() {
     this.setState({ showModal: false });
@@ -90,7 +94,18 @@ var Projects = React.createClass({
   },
   addProject: function(){
     if(this.state.newProject !== undefined) {
-      
+      component = this;
+      $.post("/projects", { repo_name: this.state.newProject })
+       .done(function( data ) {
+         component.loadProjects();
+         ReactDOM.render(<Expire delay={5000} type="alert-success">Project added successfully, reloading the projects information</Expire>,
+           document.getElementById("alerts"));
+           component.close();
+      }).fail(function(data){
+          ReactDOM.render(<Expire delay={5000} type="alert-danger">Unable to add the project</Expire>,
+            document.getElementById("alerts"));
+          component.close();
+      });
     }
   },
   componentWillReceiveProps: function(nextProps) {
@@ -106,6 +121,7 @@ var Projects = React.createClass({
     projects = this.state.allprojects || [];
     return (
       <div className="row">
+        <div id="alerts"></div>
         <h5>Projects</h5>
         <div ref="dest">
           <Button onClick={this.open} >

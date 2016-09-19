@@ -1,4 +1,3 @@
 json.person @person do |person|
-  json.id person.id
-  json.name person.name
+  json.partial! 'people/person', person: person
 end
