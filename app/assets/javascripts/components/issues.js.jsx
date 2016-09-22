@@ -52,8 +52,50 @@ var Vote = React.createClass({
   }
 });
 var ShowScore = React.createClass({
+  getInitialState: function() {
+    return {
+      project: this.props.project,
+      userStory: this.props.userStory,
+      signedIn: this.props.signedIn,
+      user: this.props.user,
+      parent: this.props.parent
+    };
+  },
   render: function() {
-    return (<div>Already voted</div>)
+    votes = {1: [], 2: [], 3: [], 5: [], 8: []}
+    this.state.userStory.votes.map(function(vote) {
+      votes[vote.vote].push(vote.person)
+    })
+    return (
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <td>
+                Points
+              </td>
+              <td>
+                Number of Votes
+              </td>
+              <td>
+                People
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+                {Object.keys(votes).map(function(point){
+                 return <tr key={point}>
+                            <td>{point}</td>
+                            <td>{votes[point].length}</td>
+                            <td>
+                              {votes[point].map(function(person, i){return (<span key={i}>{person.name}</span>);})}
+                            </td>
+                        </tr>;
+               })}
+            </tbody>
+        </table>
+      </div>
+    )
   }
 });
 var ShowVoteSel = React.createClass({
@@ -86,7 +128,7 @@ var ShowVoteSel = React.createClass({
       if(current_user_vote == -1) {
         return (<Vote userStory={this.state.userStory} user={this.state.user} signedIn={this.state.signedIn} project={this.state.project} parent={this.state.parent}/>);
       } else {
-        return (<div>user voted</div>);
+        return (<ShowScore userStory={this.state.userStory} user={this.state.user} signedIn={this.state.signedIn} project={this.state.project} parent={this.state.parent}/>);
       }
     } else {
       return (<div></div>)
