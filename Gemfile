@@ -46,8 +46,8 @@ end
 
 gem 'jwt'
 gem 'bootstrap', '~> 4.0.0.alpha4'
-gem 'react-rails', '~>1.4.0'
-gem 'react-router-rails', '~>0.13.3.2'
+gem 'react-rails', '~>1.8.2'
+gem 'react-router-rails'
 gem 'omniauth-github'
 gem 'figaro'
 gem 'octokit'

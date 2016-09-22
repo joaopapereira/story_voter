@@ -1,2 +1,2 @@
 //= require_tree ./components
-//= require routes
+//= require components/routes
