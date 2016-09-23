@@ -12,7 +12,3 @@ this.MyRoutes = (
 /*ReactRouter.run(this.MyRoutes, function (Handler) {
   ReactDOM.render(<Handler/>, document.body);
 });*/
-
-ReactRouter.run(MyRoutes, function (Handler) {
-  ReactDOM.render(<Handler/>, document.getElementById('app'));
-});
