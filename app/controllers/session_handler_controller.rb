@@ -8,7 +8,7 @@ class SessionHandlerController < ApplicationController
 
   def show
       if not current_user.nil?
-        render :json => {"signed_in" => true, "user" => current_user}.to_json()
+        render :json => {"signed_in" => true, "user" => filtering_params(current_user)}.to_json()
       else
         render :json => {"signed_in" => false}.to_json()
       end
@@ -17,5 +17,12 @@ class SessionHandlerController < ApplicationController
   def destroy
     session[:user_id] = nil
     render :json => {:success => "Logout successfull"}, :status => 200
+  end
+
+  private
+
+  # A list of the param names that can be used for filtering the Product list
+  def filtering_params(params)
+    params.slice(:id, :name, :username)
   end
 end

@@ -55,7 +55,7 @@ export class UserService {
               $this.loggedIn = true;
               $this.notifications.success(
                   'Login',
-                  'Welcome back: ' + $this.user["name"]
+                  'Welcome back: ' + (<any>$this.user)["name"]
               )
             }
           },

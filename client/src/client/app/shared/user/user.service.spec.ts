@@ -3,17 +3,18 @@ import { BaseRequestOptions, ConnectionBackend, Http, Response, ResponseOptions 
 import { MockBackend } from '@angular/http/testing';
 import { Observable } from 'rxjs/Observable';
 
-import { NameListService } from './name-list.service';
+import { UserService } from './user.service';
 
 export function main() {
-  describe('NameList Service', () => {
-    let nameListService: NameListService;
+  describe('User Service', () => {
+    let userService: UserService;
     let backend: MockBackend;
     let initialResponse: any;
 
     beforeEach(() => {
+
       let injector = ReflectiveInjector.resolveAndCreate([
-        NameListService,
+        UserService,
         BaseRequestOptions,
         MockBackend,
         {provide: Http,
@@ -23,23 +24,19 @@ export function main() {
           deps: [MockBackend, BaseRequestOptions]
         },
       ]);
-      nameListService = injector.get(NameListService);
+      userService = injector.get(UserService);
+      backend = injector.get(MockBackend);
       backend = injector.get(MockBackend);
 
       let connection: any;
       backend.connections.subscribe((c: any) => connection = c);
-      initialResponse = nameListService.get();
-      connection.mockRespond(new Response(new ResponseOptions({ body: '["Dijkstra", "Hopper"]' })));
+      initialResponse = userService.login();
     });
 
-    it('should return an Observable when get called', () => {
-      expect(initialResponse).toEqual(jasmine.any(Observable));
-    });
+    describe('Login function', () => {
+      it('Check login url', () => {
+        expect(window.location.href).toEqual("/auth/github");
+      })});
 
-    it('should resolve to list of names when get called', () => {
-      let names: any;
-      initialResponse.subscribe((data: any) => names = data);
-      expect(names).toEqual(['Dijkstra', 'Hopper']);
-    });
   });
 }
