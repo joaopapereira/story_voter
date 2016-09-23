@@ -1,0 +1,5 @@
+<a (click)="login()" *ngIf="this.userService.getUser() == null" class="btn btn-info">Sign In with <img src="/assets/GitHub-Mark-32px.png"/></a>
+<div *ngIf="this.userService.getUser() != null ">
+  Welcome {{this.userService.getUser().name}},
+  <a (click)="logout()">logout</a>
+</div>

@@ -12,7 +12,15 @@ import { Config} from './shared/index';
 })
 
 export class AppComponent {
+  options: {}
   constructor() {
     console.log('Environment config', Config);
+
+     this.options = {
+        timeOut: 5000,
+        showProgressBar: true,
+        pauseOnHover: false,
+        clickToClose: false
+    }
   }
 }

@@ -1,9 +1,9 @@
 {
-  "name": "angular2-seed",
-  "version": "0.0.0",
-  "description": "Modular seed project for Angular 2 apps with fast, statically typed build",
+  "name": "story-voter",
+  "version": "0.1.0",
+  "description": "Story Voter for Github Issues",
   "repository": {
-    "url": "https://github.com/mgechev/angular2-seed"
+    "url": "https://github.com/joaopapereira/story-voter"
   },
   "scripts": {
     "build.dev": "gulp build.dev --color --config-env dev",
@@ -33,7 +33,7 @@
     "webdriver-start": "webdriver-manager start",
     "webdriver-update": "webdriver-manager update"
   },
-  "author": "Minko Gechev <mgechev>",
+  "author": "Joao Pereira <joaopapereira>",
   "license": "MIT",
   "devDependencies": {
     "@angular/compiler-cli": "^0.6.1",
@@ -138,8 +138,13 @@
     "@angular/platform-browser": "2.0.0",
     "@angular/platform-browser-dynamic": "2.0.0",
     "@angular/router": "3.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.6",
+    "angular2-notifications": "^0.4.0",
+    "bootstrap": "^3.3.7",
     "core-js": "^2.4.0",
     "es-module-loader": "^1.0.0",
+    "font-awesome": "^4.6.3",
+    "ng2-bootstrap": "^1.1.5",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
     "systemjs": "0.19.27",

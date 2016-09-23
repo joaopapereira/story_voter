@@ -12,7 +12,7 @@ export class ProjectConfig extends SeedConfig {
 
   constructor() {
     super();
-    // this.APP_TITLE = 'Put name of your app here';
+    this.APP_TITLE = 'Story Voter';
 
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
     // this.TYPED_COMPILE_INTERVAL = 5;
@@ -22,6 +22,11 @@ export class ProjectConfig extends SeedConfig {
       ...this.NPM_DEPENDENCIES,
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
+      //{ src: '@ng-bootstrap/ng-bootstrap', inject: 'lib' },
+      { src: 'ng2-bootstrap/bundles/ng2-bootstrap', inject: 'lib' },
+      { src: 'bootstrap/dist/css/bootstrap.css', inject: true },
+      { src: 'font-awesome/css/font-awesome.min.css', inject: true },
+      { src: 'angular2-notifications', inject: 'lib' },
     ];
 
     // Add `local` third-party libraries to be injected/bundled.

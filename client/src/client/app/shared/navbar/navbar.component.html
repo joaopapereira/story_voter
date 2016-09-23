@@ -1,4 +1,16 @@
-<nav>
-  <a [routerLink]="['/']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">HOME</a>
-  <a [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">ABOUT</a>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" to="/">Story Voter</a>
+    <ul class="nav navbar-nav">
+      <li class="active">
+        <a [routerLink]="['/']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">HOME</a>
+      </li>
+      <li class="active">
+        <a [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">ABOUT</a>
+      </li>
+      <li class="pull-right">
+        <sd-session></sd-session>
+      </li>
+    </ul>
+  </div>
 </nav>
