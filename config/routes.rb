@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'projects/index'
+
+  get 'projects/new'
+
+  get 'projects/create'
+
   get 'session_handler/show'
 
   get "/auth/:provider/callback" => "session_handler#create"
