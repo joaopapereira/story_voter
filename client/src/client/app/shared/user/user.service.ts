@@ -31,7 +31,8 @@ export class UserService {
           this.notifications.success(
               'Logout',
               'The user is now logged out'
-          )
+          );
+          sessionStorage.clear();
         },
         error => {
           this.notifications.error(
@@ -53,10 +54,13 @@ export class UserService {
               $this.user = {};
               $this.user = response.json().user;
               $this.loggedIn = true;
-              $this.notifications.success(
-                  'Login',
-                  'Welcome back: ' + (<any>$this.user)["name"]
-              )
+              if(sessionStorage.getItem("already_logged") == null) {
+                $this.notifications.success(
+                    'Login',
+                    'Welcome back: ' + (<any>$this.user)["name"]
+                )
+                sessionStorage.setItem("already_logged", "true");
+              }
             }
           },
           error => {

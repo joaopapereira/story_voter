@@ -344,7 +344,6 @@ export class SeedConfig {
       'app/*': '/app/*',
       // For test config
       'dist/dev/*': '/base/dist/dev/*',
-      'angular2-notifications': '/node_modules/angular2-notifications/*',
       '*': 'node_modules/*'
     },
     packages: {
