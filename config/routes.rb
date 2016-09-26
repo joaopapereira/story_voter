@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
 
-  get 'projects/index'
-
-  get 'projects/new'
-
-  get 'projects/create'
-
+  resources :projects, :defaults => { :format => 'json' }, only: [:index, :new, :create] do
+  end
+  
   get 'session_handler/show'
 
   get "/auth/:provider/callback" => "session_handler#create"

@@ -1,0 +1,22 @@
+<table>
+  <thead>
+    <tr>
+      <td>
+        Project name
+      </td>
+      <td>
+        Number of issues
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of projects">
+      <td>
+        {{project["repo_name"]}}
+      </td>
+      <td>
+        {{project["num_of_user_stories"]}}
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -9,11 +9,12 @@ import { SimpleNotificationsModule } from 'angular2-notifications'
 
 import { AboutModule } from './about/about.module';
 import { HomeModule } from './home/home.module';
+import { ProjectModule } from './projects/project.module';
 import { SessionModule } from './session/session.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  imports: [SimpleNotificationsModule, BrowserModule, HttpModule, RouterModule.forRoot(routes), AboutModule, HomeModule, SessionModule, SharedModule.forRoot()],
+  imports: [SimpleNotificationsModule, BrowserModule, HttpModule, RouterModule.forRoot(routes), AboutModule, HomeModule, SessionModule, ProjectModule, SharedModule.forRoot()],
   declarations: [AppComponent],
   providers: [{
     provide: APP_BASE_HREF,
