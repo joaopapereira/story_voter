@@ -23,24 +23,13 @@ export class ProjectsService {
                 .map((res: Response) => res.json())
                 //...errors if any
                 .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-
-    /*this.http.get("/projects").subscribe(
-        response => {
-          $this.projects = [];
-          let all_projects = response.json();
-          for (let i = 0; i < all_projects.length ; i++) {
-              $this.projects.push(new Project(all_projects[i]));
-          }
-        },
-        error => {
-          $this.notifications.error (
-              'Retrieve projects',
-              'Unable to retrieve projects: ' + error.text()
-          );
-          $this.projects = [];
-        }
-      );
-      return this.projects;*/
+  }
+  new(): Observable<Project[]> {
+    var $this = this;
+     return this.http.get("/projects/new")
+                .map((res: Response) => res.json())
+                //...errors if any
+                .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   getProjects() {
