@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :projects, :defaults => { :format => 'json' }, only: [:index, :new, :create] do
+    resources :user_stories, :defaults => {:format => 'json'}, only: [:index]
   end
   
   get 'session_handler/show'

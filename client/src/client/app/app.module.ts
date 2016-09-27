@@ -10,6 +10,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications'
 import { AboutModule } from './about/about.module';
 import { HomeModule } from './home/home.module';
 import { ProjectModule } from './projects/project.module';
+import { UserStoriesModule } from './user_stories/user_stories.module';
 import { SessionModule } from './session/session.module';
 import { SharedModule } from './shared/shared.module';
 

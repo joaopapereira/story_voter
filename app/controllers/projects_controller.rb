@@ -36,8 +36,8 @@ class ProjectsController < ApplicationController
   end
 
 
-    # A list of the param names that can be used for filtering the Product list
-    def filtering_params(params)
-      params.slice(:id, :name, :repo_name, :num_of_user_stories)
-    end
+  # A list of the param names that can be used for filtering the Product list
+  def filtering_params(params)
+    params.slice(:id, :name, :repo_name, :num_of_user_stories)
+  end
 end

@@ -15,7 +15,7 @@
   <tbody>
     <tr *ngFor="let project of projects">
       <td>
-        {{project["repo_name"]}}
+         <a routerLink="/projects/{{project["id"]}}/user_stories" routerLinkActive="active">{{project["repo_name"]}}</a>
       </td>
       <td>
         {{project["num_of_user_stories"]}}
