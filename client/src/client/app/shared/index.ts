@@ -7,4 +7,5 @@ export * from './user/index';
 export * from './toolbar/index';
 export * from './projects/index';
 export * from './utils/index';
+export * from './spinner/index';
 export * from './config/env.config';

@@ -45,7 +45,8 @@ export class AddProjectComponent implements OnInit{
 
   newProjects: NewProjects = new NewProjects();
   closeResult: string;
-  project = {repo_name: ""};
+  project = {repo_name: ""}; 
+  public isRequesting: boolean;
 
   /**
    * Creates an instance of the HomeComponent with the injected
@@ -69,12 +70,17 @@ export class AddProjectComponent implements OnInit{
 
 
   loadProjects(){
-     this.projectsService.newProjects()
+    this.isRequesting = true;
+    this.projectsService.newProjects()
                        .subscribe(
-                           newProjects => this.newProjects = newProjects, //Bind to view
+                           newProjects => {
+                             this.newProjects = newProjects; //Bind to view 
+                             this.isRequesting = false;
+                            }, 
                             err => {
-                                // Log errors if any
-                                console.log(err);
+                              // Log errors if any
+                              console.log(err); 
+                              this.isRequesting = false;
                             });
     }
     gotoProjects() {
@@ -84,9 +90,13 @@ export class AddProjectComponent implements OnInit{
       return Object.keys(this.newProjects.organizations);
     }
     onSubmit(){
+      this.isRequesting = true;
       this.projectsService.createProject(this.project.repo_name)
           .subscribe(value => {
             this.router.navigate(['/']);
-          })
+            this.isRequesting = false;
+          }, 
+          () => this.isRequesting = false,
+          () => this.isRequesting = false)
     }
   }

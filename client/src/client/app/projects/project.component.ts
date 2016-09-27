@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Project, ProjectsService } from '../shared/index';
+import { Project, ProjectsService, SpinnerComponent } from '../shared/index';
 
 /**
  * This class represents the lazy loaded HomeComponent.

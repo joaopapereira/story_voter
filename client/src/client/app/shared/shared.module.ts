@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { SessionModule } from '../session/session.module'
 import { Project, ProjectsService, UserService, 
          NameListService, NavbarComponent, ToolbarComponent, 
-         Authentication} from './index'
+         Authentication, SpinnerComponent} from './index'
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -14,9 +14,10 @@ import { Project, ProjectsService, UserService,
 
 @NgModule({
   imports: [CommonModule, RouterModule, SessionModule],
-  declarations: [ToolbarComponent, NavbarComponent],
+  declarations: [ToolbarComponent, NavbarComponent, SpinnerComponent],
   exports: [ToolbarComponent, NavbarComponent,
-    CommonModule, FormsModule, RouterModule]
+    CommonModule, FormsModule, RouterModule,
+    SpinnerComponent]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
