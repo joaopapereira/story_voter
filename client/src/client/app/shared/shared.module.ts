@@ -3,14 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-//import { ToolbarComponent } from './toolbar/index';
-//import { NavbarComponent } from './navbar/index';
-//import { NameListService } from './name-list/index';
-//import { UserService } from './user/index';
 import { SessionModule } from '../session/session.module'
-//import { Project, ProjectsService } from './projects/index'
-//import { ValuesPipe } from './utils/index'
-import { Project, ProjectsService, UserService, NameListService, NavbarComponent, ToolbarComponent } from './index'
+import { Project, ProjectsService, UserService, 
+         NameListService, NavbarComponent, ToolbarComponent, 
+         Authentication} from './index'
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -26,7 +22,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [NameListService, UserService, ProjectsService]
+      providers: [NameListService, UserService, ProjectsService, Authentication]
     };
   }
 }

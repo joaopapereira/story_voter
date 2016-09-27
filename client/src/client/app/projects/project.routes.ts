@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { ProjectComponent, AddProjectComponent } from './index';
+import {Authentication} from '../shared/index'
 
 export const ProjectRoutes: Route[] = [
   {
@@ -8,6 +9,9 @@ export const ProjectRoutes: Route[] = [
   },
   {
     path: 'projects/add',
-    component: AddProjectComponent
+    component: AddProjectComponent,
+    canActivate:[Authentication]
+
+
   }
 ];

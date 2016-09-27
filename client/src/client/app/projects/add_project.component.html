@@ -1,22 +1,24 @@
 <div class="row">
-  <div class="row">
-    Select a project to be added from the dropdown
-  </div>
-  <div class="row">
-    <select class="form-control" id="new_project" required *ngIf="newProjects !== undefined">
-      <option value="" disabled>-- Personal Repositories --</option>
-      <option *ngFor="let p of newProjects.user" [value]="p.repo_name"> - {{p.repo_name}}</option>
-      <template ngFor let-org [ngForOf]=" newProjects.organizations | keys">
-        <option value="" disabled>-- {{org}} Repositories --</option>
-        <option *ngFor="let repo of newProjects.organizations[org]" [value]="repo.repo_name">{{repo.repo_name}}</option>
-      </template>
-    </select>
-    <span  *ngIf="newProjects === undefined">
-      Loading projects
-    </span>
-  </div>
-  <div class="row">
-    <button (click)="submit()">Add</button>
-    <button (click)="gotoProjects()">Cancel</button>
-  </div>
+  <form (submit)="onSubmit()">
+    <div class="row">
+      Select a project to be added from the dropdown
+    </div>
+    <div class="row">
+      <select class="form-control" id="new_project" required name="repo_name" [(ngModel)]="project.repo_name" *ngIf="newProjects !== undefined">
+        <option value="" disabled>-- Personal Repositories --</option>
+        <option *ngFor="let p of newProjects.user" [value]="p.repo_name"> - {{p.repo_name}}</option>
+        <template ngFor let-org [ngForOf]=" newProjects.organizations | keys">
+          <option value="" disabled>-- {{org}} Repositories --</option>
+          <option *ngFor="let repo of newProjects.organizations[org]" [value]="repo.repo_name"> - {{repo.repo_name}}</option>
+        </template>
+      </select>
+      <span  *ngIf="newProjects === undefined">
+        Loading projects
+      </span>
+    </div>
+    <div class="row">
+      <button type="submit" [disabled]="project.repo_name == ''">Add</button>
+      <button (click)="gotoProjects()">Cancel</button>
+    </div>
+  </form>
 </div>

@@ -1,7 +1,9 @@
 // user.service.ts
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications';
+
 
 @Injectable()
 export class UserService {
@@ -9,7 +11,9 @@ export class UserService {
   private user: Object;
   private loggedIn = false;
 
-  constructor(private http: Http, private notifications: NotificationsService) {
+  constructor(private http: Http, 
+              private notifications: NotificationsService,
+              private router: Router) {
     let token = localStorage.getItem('id_token');
     if(token == null) {
       this.loggedIn = false;
@@ -76,5 +80,11 @@ export class UserService {
   }
   getUser() {
     return this.user;
+  }
+  requireLogin(functionality) {
+    if(!this.isLoggedIn()) {
+      this.router.navigate(["/"]);
+      this.notifications.alert("Login required", "You need to be logged in to access " + functionality);
+    }
   }
 }

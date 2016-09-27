@@ -2,14 +2,15 @@ import { Component, ViewChild, OnInit, OnDestroy, Pipe, PipeTransform } from '@a
 import { Router } from '@angular/router';
 import { Project, NewProjects, ProjectsService } from '../shared/index';
 
+import { UserService } from '../shared/user/user.service';
 
 @Pipe({name: 'keys'})
 export class KeysPipe implements PipeTransform {
-  transform(value, args:string[]) : any {
+  transform(value: any, args:string[]) : any {
     if(value === undefined) {
       return [];
     }
-    let keys = [];
+    let keys:any[] = [];
     for (let key in value) {
       keys.push(key);
     }
@@ -23,7 +24,7 @@ export class ProjectsPipe implements PipeTransform {
     if(value === undefined) {
       return [];
     }
-    let keys = [];
+    let keys:any[] = [];
     for (let key in value) {
       keys.push(key);
     }
@@ -44,6 +45,7 @@ export class AddProjectComponent implements OnInit{
 
   newProjects: NewProjects = new NewProjects();
   closeResult: string;
+  project = {repo_name: ""};
 
   /**
    * Creates an instance of the HomeComponent with the injected
@@ -52,7 +54,8 @@ export class AddProjectComponent implements OnInit{
    * @param {NameListService} nameListService - The injected NameListService.
    */
   constructor(public projectsService: ProjectsService,
-              private router: Router) {}
+              private router: Router,
+              private userService: UserService) {}
 
   /**
    * Get the names OnInit
@@ -80,7 +83,10 @@ export class AddProjectComponent implements OnInit{
     getOrganizations() {
       return Object.keys(this.newProjects.organizations);
     }
-    submit(){
-      
+    onSubmit(){
+      this.projectsService.createProject(this.project.repo_name)
+          .subscribe(value => {
+            this.router.navigate(['/']);
+          })
     }
   }

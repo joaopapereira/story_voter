@@ -53,7 +53,19 @@ export class ProjectsService {
                 //...errors if any
                 .catch((error:any) => Observable.throw(error || 'Server error'));
   }
-
+  createProject(projectRepo): Observable<any> {
+    var $this = this;
+    return this.http.post("/projects", {repo_name: projectRepo})
+                .map((res: Response) => {
+                  this.notifications.success("Project created", "Project created successfuly");
+                })
+                .catch((error: any) => {
+                   let errMsg = (error.message) ? error.message :
+                    error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+                  console.error(errMsg); // log to console instead
+                  this.notifications.error("Error creating project", "Error happened while creating the project")
+                });
+  }
   getProjects() {
     if(this.projects.length == 0) {
       this.all();

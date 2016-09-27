@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NameListService } from '../shared/index';
 
 
 import { UserService } from '../shared/user/user.service';
