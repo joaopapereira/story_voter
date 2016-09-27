@@ -1,9 +1,13 @@
 import { Route } from '@angular/router';
-import { ProjectComponent } from './index';
+import { ProjectComponent, AddProjectComponent } from './index';
 
-export const HomeRoutes: Route[] = [
+export const ProjectRoutes: Route[] = [
   {
-    path: '/projects',
+    path: 'projects',
     component: ProjectComponent
+  },
+  {
+    path: 'projects/add',
+    component: AddProjectComponent
   }
 ];

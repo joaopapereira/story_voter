@@ -9,6 +9,12 @@ import { Project } from './project';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+
+export class NewProjects {
+  user: Project[] = [];
+  organizations: {[key: string]: Project[];}
+}
+
 @Injectable()
 export class ProjectsService {
   projects: Project[];
@@ -24,12 +30,28 @@ export class ProjectsService {
                 //...errors if any
                 .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
-  new(): Observable<Project[]> {
+
+  newProjects(): Observable<NewProjects> {
     var $this = this;
      return this.http.get("/projects/new")
                 .map((res: Response) => res.json())
+                .map((projects: Object) => {
+                    let result: NewProjects = new NewProjects();
+                    projects.user.forEach((project:any) => {
+                      result.user.push(new Project(project))
+                    })
+                    result.organizations = {};
+                    Object.keys(projects.orgs).forEach((org: any) => {
+                      result.organizations[org] = [];
+                      projects.orgs[org].forEach((project: any) => {
+                        result.organizations[org].push(new Project(project));
+                      })
+                    })
+                    return result;
+                  })
+
                 //...errors if any
-                .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+                .catch((error:any) => Observable.throw(error || 'Server error'));
   }
 
   getProjects() {

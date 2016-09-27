@@ -1,6 +1,35 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { Project, ProjectsService } from '../shared/index';
+import { Component, ViewChild, OnInit, OnDestroy, Pipe, PipeTransform } from '@angular/core';
+import { Router } from '@angular/router';
+import { Project, NewProjects, ProjectsService } from '../shared/index';
 
+
+@Pipe({name: 'keys'})
+export class KeysPipe implements PipeTransform {
+  transform(value, args:string[]) : any {
+    if(value === undefined) {
+      return [];
+    }
+    let keys = [];
+    for (let key in value) {
+      keys.push(key);
+    }
+    return keys;
+  }
+}
+
+@Pipe({name: 'projects'})
+export class ProjectsPipe implements PipeTransform {
+  transform(value:NewProjects, args:any[]) : Project[] {
+    if(value === undefined) {
+      return [];
+    }
+    let keys = [];
+    for (let key in value) {
+      keys.push(key);
+    }
+    return keys;
+  }
+}
 
 /**
  * This class represents the lazy loaded HomeComponent.
@@ -8,12 +37,12 @@ import { Project, ProjectsService } from '../shared/index';
 @Component({
   moduleId: module.id,
   selector: 'sd-add-project',
-  templateUrl: 'project.component.html'
+  templateUrl: 'add_project.component.html'
 })
 
-export class AddProjectComponent implements OnInit, OnDestroy {
+export class AddProjectComponent implements OnInit{
 
-  newProjects: Project[] = [];
+  newProjects: NewProjects = new NewProjects();
   closeResult: string;
 
   /**
@@ -22,13 +51,14 @@ export class AddProjectComponent implements OnInit, OnDestroy {
    *
    * @param {NameListService} nameListService - The injected NameListService.
    */
-  constructor(public projectsService: ProjectsService) {}
+  constructor(public projectsService: ProjectsService,
+              private router: Router) {}
 
   /**
    * Get the names OnInit
    */
   ngOnInit() {
-    //this.loadProjects();
+    this.loadProjects();
   }
 
   ngOnDestroy() {
@@ -36,13 +66,21 @@ export class AddProjectComponent implements OnInit, OnDestroy {
 
 
   loadProjects(){
-    // Get all comments
-     this.projectsService.all()
+     this.projectsService.newProjects()
                        .subscribe(
                            newProjects => this.newProjects = newProjects, //Bind to view
                             err => {
                                 // Log errors if any
                                 console.log(err);
                             });
+    }
+    gotoProjects() {
+      this.router.navigate(['/projects']);
+    }
+    getOrganizations() {
+      return Object.keys(this.newProjects.organizations);
+    }
+    submit(){
+      
     }
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Project, ProjectsService } from '../shared/index';
 
 /**
@@ -20,7 +21,8 @@ export class ProjectComponent implements OnInit {
    *
    * @param {NameListService} nameListService - The injected NameListService.
    */
-  constructor(public projectsService: ProjectsService) {}
+  constructor(public projectsService: ProjectsService,
+              private router: Router) {}
 
   /**
    * Get the names OnInit
@@ -38,5 +40,8 @@ export class ProjectComponent implements OnInit {
                                 // Log errors if any
                                 console.log(err);
                             });
+    }
+    newProject() {
+      this.router.navigate(["/projects/add"]);
     }
   }
