@@ -21,6 +21,15 @@ class VotingSessionController < ApplicationController
     render :json => {:sessions => sessions}
   end
 
+  def show
+    project = Project.find_by_id(params[:project_id])
+    return render :json => { :error => "Project with ID #{params[:project_id]} cannot be found"}, :status => 402 if project.nil?
+    session = VotingSession.find_by_id(params[:id])
+    return render :json => { :error => "Voting session with ID #{params[:id]} cannot be found"}, :status => 402 if session.nil?
+    return render :json => { :error => "Voting session is not part of the project"}, :status => 400 if session.project.id != project.id
+    render :json => {:session => session}
+  end
+
   private
 
   def voting_session_params

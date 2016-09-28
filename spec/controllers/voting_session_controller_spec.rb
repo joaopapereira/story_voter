@@ -155,6 +155,66 @@ RSpec.describe VotingSessionController, type: :controller do
       end
     end
   end
+  describe "GET #show" do
+    let(:voting_session) {FactoryGirl.create(:voting_session, :id=> 1, :project => project, :person => user)}
+    let(:project2) {  FactoryGirl.build(:project, :id => 11) }
+    context "invalid project" do
+      before(:each) do
+        get :show, params: {:project_id => project2, :id => voting_session}, format: :json
+      end
+      it "returns http error" do
+        expect(response).to have_http_status(402)
+      end
 
+      context "JSON Check" do
+        it "success" do
+          expected = {:error => "Project with ID 11 cannot be found"}
+          expect(response.body).to eq(expected.to_json)
+        end
+      end
+    end
+    context "invalid session" do
+      before(:each) do
+        project.save!
+        get :show, params: {:project_id => project, :id => VotingSession.new(:id => 100)}, format: :json
+      end
+      it "returns http error" do
+        expect(response).to have_http_status(402)
+      end
 
+      context "JSON Check" do
+        it "success" do
+          expected = {:error => "Voting session with ID 100 cannot be found"}
+          expect(response.body).to eq(expected.to_json)
+        end
+      end
+    end
+    context "session" do
+      let(:creator) {FactoryGirl.create(:person, :username => "creator")}
+      before(:each) do
+        project.save!
+        @today = Time.now
+        FactoryGirl.create(:voting_session, :id=> 1, :person => creator, :project => project, :end_date => @today.midnight + 1.day, :start_date => @today)
+        FactoryGirl.create(:voting_session, :id=> 2, :person => creator, :project => project, :end_date => @today.midnight + 2.day, :start_date => @today)
+        session = FactoryGirl.create(:voting_session, :id=> 3, :person => creator, :project => project, :end_date => @today.midnight + 3.day, :start_date => @today)
+        @user_story = FactoryGirl.create(:user_story, :id => 1, :project => project)
+        session.user_stories << @user_story
+        get :show, params: {:project_id => project, :id => session}, format: :json
+      end
+      after(:each) do
+        Timecop.return
+      end
+      it "returns http error" do
+        expect(response).to have_http_status(200)
+      end
+
+      context "JSON Check" do
+        it "success" do
+          today = Date.parse(@today.strftime('%Y/%m/%d'))
+          expected = {:session => {:id => 3, :start_date => today, :end_date => today+3, :person => creator.as_json, :project => project.as_json, :user_stories => [@user_story]}}
+          expect(response.body).to eq(expected.to_json)
+        end
+      end
+    end
+  end
 end
