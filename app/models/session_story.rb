@@ -1,4 +1,4 @@
 class SessionStory < ApplicationRecord
-  belongs_to :voting_sessions
-  belongs_to :user_stories
+  belongs_to :voting_session
+  belongs_to :user_story
 end

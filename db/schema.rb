@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 20160923130954) do
   end
 
   create_table "session_stories", force: :cascade do |t|
-    t.integer  "voting_sessions_id"
-    t.integer  "user_stories_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["user_stories_id"], name: "index_session_stories_on_user_stories_id"
-    t.index ["voting_sessions_id"], name: "index_session_stories_on_voting_sessions_id"
+    t.integer  "voting_session_id"
+    t.integer  "user_story_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["user_story_id"], name: "index_session_stories_on_user_story_id"
+    t.index ["voting_session_id"], name: "index_session_stories_on_voting_session_id"
   end
 
   create_table "user_stories", force: :cascade do |t|
@@ -48,13 +48,13 @@ ActiveRecord::Schema.define(version: 20160923130954) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "session_stories_id"
+    t.integer  "session_story_id"
     t.integer  "person_id"
     t.integer  "vote"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.index ["person_id"], name: "index_votes_on_person_id"
-    t.index ["session_stories_id"], name: "index_votes_on_session_stories_id"
+    t.index ["session_story_id"], name: "index_votes_on_session_story_id"
   end
 
   create_table "voting_sessions", force: :cascade do |t|

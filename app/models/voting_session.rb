@@ -1,6 +1,8 @@
 class VotingSession < ApplicationRecord
   belongs_to :project
   belongs_to :person
+  has_many :session_stories, :class_name => "SessionStory"
+  has_many :user_stories, through: :session_stories
 
   validate :end_date_bigger_then_start_date, :end_date_in_future
   validates :end_date, presence: true
