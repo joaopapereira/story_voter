@@ -3,4 +3,5 @@
  */
 export * from './add_project.component';
 export * from './project.component';
+export * from './projects.component';
 export * from './project.routes';

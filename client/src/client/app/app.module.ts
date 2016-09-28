@@ -13,9 +13,13 @@ import { ProjectModule } from './projects/project.module';
 import { UserStoriesModule } from './user_stories/user_stories.module';
 import { SessionModule } from './session/session.module';
 import { SharedModule } from './shared/shared.module';
+import { VotingSessionsModule } from './voting_sessions/voting_sessions.module';
 
 @NgModule({
-  imports: [SimpleNotificationsModule, BrowserModule, HttpModule, RouterModule.forRoot(routes), AboutModule, HomeModule, SessionModule, ProjectModule, UserStoriesModule, SharedModule.forRoot()],
+  imports: [SimpleNotificationsModule, BrowserModule, HttpModule, RouterModule.forRoot(routes),
+            AboutModule, HomeModule, SessionModule, ProjectModule,
+            UserStoriesModule, VotingSessionsModule,
+            SharedModule.forRoot()],
   declarations: [AppComponent],
   providers: [{
     provide: APP_BASE_HREF,

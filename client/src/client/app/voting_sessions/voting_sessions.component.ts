@@ -1,21 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Project } from '../shared/index';
-import { UserStoriesService, UserStories, UserStory } from './user_stories.service'
+import { Project, ProjectsService } from '../shared/index';
+import { VotingSessionsService, VotingSession } from './voting_sessions.service'
 
 /**
  * This class represents the lazy loaded HomeComponent.
  */
 @Component({
   moduleId: module.id,
-  selector: 'st-user-stories',
-  templateUrl: 'user_stories.component.html'
+  selector: 'st-voting-sessions',
+  templateUrl: 'voting_sessions.component.html'
 })
 
-export class UserStoriesComponent implements OnInit {
+export class VotingSessionsComponent implements OnInit {
   projectId: number;
   project: Project;
-  stories: UserStory[];
+  sessions: VotingSession[];
 
   /**
    * Creates an instance of the HomeComponent with the injected
@@ -23,7 +23,7 @@ export class UserStoriesComponent implements OnInit {
    *
    * @param {NameListService} nameListService - The injected NameListService.
    */
-  constructor(public route: ActivatedRoute, public userStories: UserStoriesService) {
+  constructor(public route: ActivatedRoute, public votingService: VotingSessionsService, public projectsService: ProjectsService) {
   }
 
   /**
@@ -38,11 +38,11 @@ export class UserStoriesComponent implements OnInit {
 
   loadStories() {
     var $this = this;
-    this.userStories.getUserStories(this.projectId)
+    this.project = this.projectsService.getProject(this.projectId);
+    this.votingService.getSessions(this.projectId)
         .subscribe(
-            (userStoryObject:UserStories) => {
-              $this.project = userStoryObject.project;
-              $this.stories = userStoryObject.stories;
+            (userStoryObject:VotingSession[]) => {
+              $this.sessions = userStoryObject;
             }, //Bind to view
              (err:any) => {
                  // Log errors if any

@@ -78,4 +78,17 @@ export class ProjectsService {
     }
     return this.projects;
   }
+
+  getProject(project_id: number): Project {
+    if(this.projects.length == 0) {
+      this.all();
+    }
+    var $project:Project = undefined;
+    this.projects.forEach((project:Project) => {
+      if(project_id == project.id){
+        $project = project;
+      }
+    });
+    return $project;
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { Project, ProjectsService, SpinnerComponent } from '../shared/index';
 
 /**
@@ -7,12 +7,12 @@ import { Project, ProjectsService, SpinnerComponent } from '../shared/index';
  */
 @Component({
   moduleId: module.id,
-  selector: 'st-project',
-  templateUrl: 'project.component.html'
+  selector: 'st-projects',
+  templateUrl: 'projects.component.html'
 })
 
-export class ProjectComponent implements OnInit {
-  projectId: number;
+export class ProjectsComponent implements OnInit {
+
   projects: Project[] = [];
 
   /**
@@ -22,16 +22,12 @@ export class ProjectComponent implements OnInit {
    * @param {NameListService} nameListService - The injected NameListService.
    */
   constructor(public projectsService: ProjectsService,
-              private router: Router,
-              public route: ActivatedRoute) {}
+              private router: Router) {}
 
   /**
    * Get the names OnInit
    */
   ngOnInit() {
-    this.route.params.forEach((params: Params) => {
-      this.projectId = +params['project_id'];
-    });
     this.loadProjects();
   }
 

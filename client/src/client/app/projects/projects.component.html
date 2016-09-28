@@ -1,0 +1,25 @@
+<button (click)="newProject()">
+  <i class="fa fa-plus" aria-hidden="true"></i>
+</button>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>
+        Project name
+      </td>
+      <td>
+        Number of issues
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of projects">
+      <td>
+         <a routerLink="/projects/{{project['id']}}" routerLinkActive="active">{{project["repo_name"]}}</a>
+      </td>
+      <td>
+        {{project["num_of_user_stories"]}}
+      </td>
+    </tr>
+  </tbody>
+</table>
