@@ -15,6 +15,10 @@ class VotingSessionController < ApplicationController
   end
 
   def index
+    @project = Project.find_by_id(params[:project_id])
+    return render :json => { :error => "Project with ID #{params[:project_id]} cannot be found"}, :status => 402 if @project.nil?
+    sessions = VotingSession.find_by_project(@project).open
+    render :json => {:sessions => sessions}
   end
 
   private

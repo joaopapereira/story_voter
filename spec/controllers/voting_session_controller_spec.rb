@@ -92,10 +92,20 @@ RSpec.describe VotingSessionController, type: :controller do
   end
 
   describe "GET #index" do
-    it "returns http success" do
-      p = FactoryGirl.build(:project, :id => 10)
-      get :index, params: {:project_id => p}, format: :json
-      expect(response).to have_http_status(:success)
+    context "invalid project" do
+      before(:each) do
+        get :index, params: {:project_id => project}, format: :json
+      end
+      it "returns http error" do
+        expect(response).to have_http_status(402)
+      end
+
+      context "JSON Check" do
+        it "success" do
+          expected = {:error => "Project with ID 10 cannot be found"}
+          expect(response.body).to eq(expected.to_json)
+        end
+      end
     end
   end
 
