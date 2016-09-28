@@ -6,9 +6,17 @@ class VotingSession < ApplicationRecord
   validates :end_date, presence: true
   validates :start_date, presence: true
 
-  scope :find_by_project -> (project) {where("project_id=?", project.id)}
-  scope :open -> {where("end_date>=?", Date.now)}
-  scope :closed -> {where("end_date<?", Date.now)}
+  scope :find_by_project, -> (project) {where("project_id=?", project.id)}
+  scope :open, -> {where("end_date>=?", Time.now).order(:end_date)}
+  scope :closed, -> {where("end_date<?", Time.now).order(:end_date)}
+
+
+  # Exclude password info from json output.
+  def as_json(options={})
+    options[:except] ||= [:created_at, :updated_at, :project_id, :person_id]
+    options[:methods] ||= [:person, :project]
+    super(options)
+  end
 
   private
   def end_date_bigger_then_start_date
@@ -19,7 +27,7 @@ class VotingSession < ApplicationRecord
   end
   def end_date_in_future
     return if end_date.nil?
-    if end_date < Date.new
+    if end_date < Time.now
       errors.add(:end_date, "can't be in the past")
     end
   end

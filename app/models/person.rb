@@ -11,4 +11,10 @@ class Person < ApplicationRecord
       user.username = auth["info"]["nickname"]
     end
   end
+
+  # Exclude password info from json output.
+  def as_json(options={})
+    options[:except] ||= [:created_at, :updated_at]
+    super(options)
+  end
 end

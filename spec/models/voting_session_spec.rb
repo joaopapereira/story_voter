@@ -22,33 +22,33 @@ RSpec.describe VotingSession, type: :model do
     context 'end_date' do
       subject { FactoryGirl.build(:voting_session) }
       it "in the past" do
-        subject.end_date = Date.new - 1
+        subject.end_date = Time.now - 1.day
         expect(subject).to_not be_valid
       end
       it "in the future" do
-        subject.end_date = Date.new + 1
-        expect(subject).to_not be_valid
+        subject.end_date = Time.now + 1.day
+        expect(subject).to be_valid
       end
       it "today" do
-        subject.start_date = Date.new - 3
-        subject.end_date = Date.new
+        subject.start_date = Time.now - 3.day
+        subject.end_date = Time.now.midnight + 1.day
         expect(subject).to be_valid
       end
     end
     context 'dates' do
       subject { FactoryGirl.build(:voting_session) }
       it "start date equal to end date" do
-        subject.end_date = Date.new + 1
+        subject.end_date = Time.now + 1.day
         subject.start_date = subject.end_date
         expect(subject).to be_valid
       end
       it "start date after end date" do
-        subject.end_date = Date.new + 1
+        subject.end_date = Time.now + 1.day
         subject.start_date = subject.end_date + 1
         expect(subject).to_not be_valid
       end
       it "start date before end date" do
-        subject.end_date = Date.new + 1
+        subject.end_date = Time.now + 1.day
         subject.start_date = subject.end_date - 1
         expect(subject).to be_valid
       end

@@ -4,6 +4,7 @@ RSpec.describe VotingSessionController, type: :controller do
 
   let(:user) { FactoryGirl.create(:person) }
   let(:project) {  FactoryGirl.build(:project, :id => 10) }
+  let(:project1) {  FactoryGirl.create(:project, :id => 15) }
 
   describe "POST #create" do
     context "User not logged in" do
@@ -43,7 +44,7 @@ RSpec.describe VotingSessionController, type: :controller do
       context "no start_date" do
         before(:each) do
           project.save!
-          post :create, params: {:project_id => project, :voting_session => {:end_date => Date.new + 1}}, format: :json
+          post :create, params: {:project_id => project, :voting_session => {:end_date => Time.now + 1.day}}, format: :json
         end
         it "returns http error" do
           expect(response).to have_http_status(400)
@@ -59,7 +60,7 @@ RSpec.describe VotingSessionController, type: :controller do
       context "no end_date" do
         before(:each) do
           project.save!
-          post :create, params: {:project_id => project, :voting_session => {:start_date => Date.new + 1}}, format: :json
+          post :create, params: {:project_id => project, :voting_session => {:start_date => Time.now + 1.day}}, format: :json
         end
         it "returns http error" do
           expect(response).to have_http_status(400)
@@ -75,7 +76,7 @@ RSpec.describe VotingSessionController, type: :controller do
       context "success" do
         before(:each) do
           project.save!
-          post :create, params: {:project_id => project, :voting_session => {:start_date => Date.new + 1, :end_date => Date.new + 2}}, format: :json
+          post :create, params: {:project_id => project, :voting_session => {:start_date => Time.now + 1.day, :end_date => Time.now + 2.day}}, format: :json
         end
         it "returns http success" do
           expect(response).to have_http_status(200)
@@ -103,6 +104,50 @@ RSpec.describe VotingSessionController, type: :controller do
       context "JSON Check" do
         it "success" do
           expected = {:error => "Project with ID 10 cannot be found"}
+          expect(response.body).to eq(expected.to_json)
+        end
+      end
+    end
+    context "no sessions" do
+      before(:each) do
+        project.save!
+        get :index, params: {:project_id => project}, format: :json
+      end
+      it "returns http error" do
+        expect(response).to have_http_status(200)
+      end
+
+      context "JSON Check" do
+        it "success" do
+          expected = {:sessions => []}
+          expect(response.body).to eq(expected.to_json)
+        end
+      end
+    end
+    context "sessions" do
+      let(:creator) {FactoryGirl.create(:person, :username => "creator")}
+      before(:each) do
+        project.save!
+        @today = Time.now
+        FactoryGirl.create(:voting_session, :id=> 1, :person => creator, :project => project, :end_date => @today.midnight + 1.day, :start_date => @today)
+        FactoryGirl.create(:voting_session, :id=> 2, :person => creator, :project => project, :end_date => @today.midnight + 2.day, :start_date => @today)
+        FactoryGirl.create(:voting_session, :id=> 3, :person => creator, :project => project, :end_date => @today.midnight + 3.day, :start_date => @today)
+        FactoryGirl.create(:voting_session, :id=> 4, :person => creator, :project => project1, :end_date => @today.midnight + 3.day, :start_date => @today)
+        Timecop.freeze(@today + 1.day)
+        get :index, params: {:project_id => project}, format: :json
+      end
+      after(:each) do
+        Timecop.return
+      end
+      it "returns http error" do
+        expect(response).to have_http_status(200)
+      end
+
+      context "JSON Check" do
+        it "success" do
+          today = Date.parse(@today.strftime('%Y/%m/%d'))
+          expected = {:sessions => [{:id => 2, :start_date => today, :end_date => today+2, :person => creator.as_json, :project => project.as_json},
+                                    {:id => 3, :start_date => today, :end_date => today+3, :person => creator.as_json, :project => project.as_json}]}
           expect(response.body).to eq(expected.to_json)
         end
       end
