@@ -1,12 +1,9 @@
-Voting Sessions open:
-<div class="row" *ngFor="let session of sessions">
-  <div>
-    Session start: {{session.start_date}}
-  </div>
-  <div>
-    Session end: {{session.end_date}}
-  </div>
-  <div>
-    Stories to vote on: 
+<h4>Voting Sessions open:</h4>
+
+<div class="card" *ngFor="let session of sessions">
+  <h3 class="card-header">Voting session {{session.id}}</h3>
+  <div class="card-block">
+    <p class="card-text">Session start: {{session.start_date | dateToday}}</p>
+    <p class="card-text">Session end: {{session.end_date | dateToday}}</p>
   </div>
 </div>

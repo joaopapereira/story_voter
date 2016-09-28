@@ -1,7 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Project, ProjectsService } from '../shared/index';
 import { VotingSessionsService, VotingSession } from './voting_sessions.service'
+
+
+@Pipe({name: 'dateToday'})
+export class DateWithTodayPipe implements PipeTransform {
+  transform(value: string): string {
+    let today = new Date().toISOString().slice(0,10);
+    if(0 == value.localeCompare(today)) {
+      return "Today";
+    }
+    return value.toString();
+  }
+}
+
 
 /**
  * This class represents the lazy loaded HomeComponent.
