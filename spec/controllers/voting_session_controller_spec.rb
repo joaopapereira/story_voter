@@ -131,8 +131,10 @@ RSpec.describe VotingSessionController, type: :controller do
         @today = Time.now
         FactoryGirl.create(:voting_session, :id=> 1, :person => creator, :project => project, :end_date => @today.midnight + 1.day, :start_date => @today)
         FactoryGirl.create(:voting_session, :id=> 2, :person => creator, :project => project, :end_date => @today.midnight + 2.day, :start_date => @today)
-        FactoryGirl.create(:voting_session, :id=> 3, :person => creator, :project => project, :end_date => @today.midnight + 3.day, :start_date => @today)
+        session = FactoryGirl.create(:voting_session, :id=> 3, :person => creator, :project => project, :end_date => @today.midnight + 3.day, :start_date => @today)
         FactoryGirl.create(:voting_session, :id=> 4, :person => creator, :project => project1, :end_date => @today.midnight + 3.day, :start_date => @today)
+        @user_story = FactoryGirl.create(:user_story, :id => 1, :project => project)
+        session.user_stories << @user_story
         Timecop.freeze(@today + 1.day)
         get :index, params: {:project_id => project}, format: :json
       end
@@ -146,8 +148,8 @@ RSpec.describe VotingSessionController, type: :controller do
       context "JSON Check" do
         it "success" do
           today = Date.parse(@today.strftime('%Y/%m/%d'))
-          expected = {:sessions => [{:id => 2, :start_date => today, :end_date => today+2, :person => creator.as_json, :project => project.as_json},
-                                    {:id => 3, :start_date => today, :end_date => today+3, :person => creator.as_json, :project => project.as_json}]}
+          expected = {:sessions => [{:id => 2, :start_date => today, :end_date => today+2, :person => creator.as_json, :project => project.as_json, :user_stories => []},
+                                    {:id => 3, :start_date => today, :end_date => today+3, :person => creator.as_json, :project => project.as_json, :user_stories => [@user_story]}]}
           expect(response.body).to eq(expected.to_json)
         end
       end

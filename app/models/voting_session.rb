@@ -16,7 +16,7 @@ class VotingSession < ApplicationRecord
   # Exclude password info from json output.
   def as_json(options={})
     options[:except] ||= [:created_at, :updated_at, :project_id, :person_id]
-    options[:methods] ||= [:person, :project]
+    options[:methods] ||= [:person, :project, :user_stories]
     super(options)
   end
 
