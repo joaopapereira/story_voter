@@ -4,10 +4,10 @@ import {Component, Input, OnDestroy} from '@angular/core';
 
 @Component({
     selector: 'st-spinner',
-    templateUrl: './spinner.component.html',
-    styles: ['./spinner.component.css']
+    templateUrl: 'spinner.component.html',
+    styles: ['spinner.component.css']
 })
-export class SpinnerComponent implements OnDestroy {  
+export class SpinnerComponent implements OnDestroy {
     private currentTimeout: number;
     private isDelayedRunning: boolean = false;
 
