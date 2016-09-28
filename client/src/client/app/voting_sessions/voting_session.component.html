@@ -1,0 +1,24 @@
+<h3>Project: {{project?.repo_name}}</h3>
+<h4>Voting Session {{session?.id}}</h4>
+<p>Session start: {{session?.start_date | dateToday}}</p>
+<p>Session end: {{session?.end_date | dateToday}}</p>
+<button (click)="gotoAddStories(project.id, session.id)">Add other stories</button>
+<table className="table table-striped">
+  <thead>
+    <tr>
+      <td>
+        Title
+      </td>
+      <td>
+        Options
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let story of session?.user_stories">
+      <td><a href={{story.url}} target="_new">{{story.title}}</a></td>
+      <td>
+      </td>
+    </tr>
+  </tbody>
+</table>

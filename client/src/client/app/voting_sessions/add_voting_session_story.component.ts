@@ -9,11 +9,8 @@ import { VotingSessionsService, VotingSession } from './voting_sessions.service'
 export class DateWithTodayPipe implements PipeTransform {
   transform(value: string): string {
     let today = new Date().toISOString().slice(0,10);
-    if(0 == today.localeCompare(value)) {
+    if(0 == value.localeCompare(today)) {
       return "Today";
-    }
-    if(value == null) {
-      return "";
     }
     return value.toString();
   }
@@ -25,14 +22,15 @@ export class DateWithTodayPipe implements PipeTransform {
  */
 @Component({
   moduleId: module.id,
-  selector: 'st-voting-sessions',
-  templateUrl: 'voting_sessions.component.html'
+  selector: 'st-voting-session',
+  templateUrl: 'voting_session.component.html'
 })
 
-export class VotingSessionsComponent implements OnInit {
+export class VotingSessionComponent implements OnInit {
   projectId: number;
+  sessionId: number;
   project: Project;
-  sessions: VotingSession[];
+  session: VotingSession;
 
   /**
    * Creates an instance of the HomeComponent with the injected
@@ -52,24 +50,28 @@ export class VotingSessionsComponent implements OnInit {
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.projectId = +params['project_id'];
+      this.sessionId = +params['session_id'];
     });
-    this.loadStories();
+    this.loadSession();
   }
 
-  loadStories() {
+  loadSession() {
     var $this = this;
-    this.project = this.projectsService.getProject(this.projectId);
-    this.votingService.getSessions(this.projectId)
+    this.votingService.getSession(this.projectId, this.sessionId)
         .subscribe(
-            (userStoryObject:VotingSession[]) => {
-              $this.sessions = userStoryObject;
+            (userStoryObject:VotingSession) => {
+              $this.session = userStoryObject;
+              $this.project = $this.session.project;
             }, //Bind to view
              (err:any) => {
                  // Log errors if any
                  console.log(err);
              });
   }
-  goVote(sessionId: number) {
-    this.router.navigate(['/projects/' + this.projectId + '/voting_session/' + sessionId]);
+  goBack() {
+    this.router.navigate(['/projects/' + this.projectId ]);
+  }
+  gotoAddStories() {
+    this.router.navigate(['/projects/' + this.projectId + '/voting_session/' + this.sessionId + '/add' ]);
   }
 }

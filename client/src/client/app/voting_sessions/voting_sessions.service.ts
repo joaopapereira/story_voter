@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Rx';
 import { Http, Response, Headers } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications';
 import { Project } from '../shared/index';
+import { UserStory } from '../user_stories/index';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -19,6 +20,7 @@ export class VotingSession {
     end_date: Date;
     person: Object;
     project: Project;
+    user_stories: UserStory[];
 
     constructor(info: JSONInterface) {
         this.id = info["id"];
@@ -26,6 +28,7 @@ export class VotingSession {
         this.end_date = info["end_date"];
         this.person = info["person"];
         this.project = new Project(info["project"]);
+        this.user_stories = info["user_stories"];
     }
 }
 
@@ -43,6 +46,16 @@ export class VotingSessionsService {
                 .map((res: Response) => res.json())
                 .map((result: JSONInterface) => {
                     return result["sessions"];
+                  })
+                //...errors if any
+                .catch((error:any) => Observable.throw(error || 'Server error'));
+  }
+  getSession(projectId: number, sessionId: number): Observable<VotingSession> {
+    var $this = this;
+     return this.http.get("/projects/" + projectId + '/voting_session/' + sessionId)
+                .map((res: Response) => res.json())
+                .map((result: JSONInterface) => {
+                    return result["session"];
                   })
                 //...errors if any
                 .catch((error:any) => Observable.throw(error || 'Server error'));

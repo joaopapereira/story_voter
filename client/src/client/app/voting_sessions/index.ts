@@ -3,3 +3,5 @@
  */
 export * from './voting_sessions.service';
 export * from './voting_sessions.component';
+export * from './voting_session.component';
+export * from './voting_sessions.routes';

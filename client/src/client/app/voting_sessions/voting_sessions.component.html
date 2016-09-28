@@ -5,5 +5,9 @@
   <div class="card-block">
     <p class="card-text">Session start: {{session.start_date | dateToday}}</p>
     <p class="card-text">Session end: {{session.end_date | dateToday}}</p>
+    <p class="card-text">User stories: {{session.user_stories.length}}</p>
+    <button class="btn btn-primary" (click)="goVote(session.id)">
+      Go Vote
+    </button>
   </div>
 </div>
