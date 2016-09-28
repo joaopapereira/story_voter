@@ -1,0 +1,22 @@
+
+<h2>Project: {{project?.repo_name}}</h2>
+<h3>User Stories</h3>
+<table className="table table-striped">
+  <thead>
+    <tr>
+      <td>
+        Title
+      </td>
+      <td>
+        Options
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let story of stories">
+      <td><a href={{story.url}} target="_new">{{story.title}}</a></td>
+      <td>
+      </td>
+    </tr>
+  </tbody>
+</table>

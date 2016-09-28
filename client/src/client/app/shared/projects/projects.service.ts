@@ -15,6 +15,11 @@ export class NewProjects {
   organizations: {[key: string]: Project[];}
 }
 
+interface JSONInterface {
+  user: any[];
+  orgs: any[];
+}
+
 @Injectable()
 export class ProjectsService {
   projects: Project[];
@@ -35,7 +40,7 @@ export class ProjectsService {
     var $this = this;
      return this.http.get("/projects/new")
                 .map((res: Response) => res.json())
-                .map((projects: Object) => {
+                .map((projects: JSONInterface) => {
                     let result: NewProjects = new NewProjects();
                     projects.user.forEach((project:any) => {
                       result.user.push(new Project(project))
@@ -53,7 +58,7 @@ export class ProjectsService {
                 //...errors if any
                 .catch((error:any) => Observable.throw(error || 'Server error'));
   }
-  createProject(projectRepo): Observable<any> {
+  createProject(projectRepo:string): Observable<any> {
     var $this = this;
     return this.http.post("/projects", {repo_name: projectRepo})
                 .map((res: Response) => {
@@ -64,6 +69,7 @@ export class ProjectsService {
                     error.status ? `${error.status} - ${error.statusText}` : 'Server error';
                   console.error(errMsg); // log to console instead
                   this.notifications.error("Error creating project", "Error happened while creating the project")
+                  return Observable.throw(error.json().error || 'Server error');
                 });
   }
   getProjects() {

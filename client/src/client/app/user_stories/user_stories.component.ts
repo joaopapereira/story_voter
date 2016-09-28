@@ -1,19 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Project } from '../shared/index';
+import { UserStoriesService, UserStories, UserStory } from './user_stories.service'
 
 /**
  * This class represents the lazy loaded HomeComponent.
  */
 @Component({
   moduleId: module.id,
-  selector: 'sd-projects',
-  templateUrl: 'project.component.html'
+  selector: 'sd-user-stories',
+  templateUrl: 'user_stories.component.html'
 })
 
 export class UserStoriesComponent implements OnInit {
-
-  @Input() project: Project;
+  projectId: number;
+  project: Project;
+  stories: UserStory[];
 
   /**
    * Creates an instance of the HomeComponent with the injected
@@ -21,22 +23,30 @@ export class UserStoriesComponent implements OnInit {
    *
    * @param {NameListService} nameListService - The injected NameListService.
    */
-  constructor(public route: ActivatedRoute) {}
+  constructor(public route: ActivatedRoute, public userStories: UserStoriesService) {
+  }
 
   /**
    * Get the names OnInit
    */
   ngOnInit() {
-    this.loadProjects();
-    
     this.route.params.forEach((params: Params) => {
-      let id = +params['id'];
-      this.heroService.getHero(id)
-        .then(hero => this.hero = hero);
+      this.projectId = +params['project_id'];
     });
+    this.loadStories();
   }
 
-  loadProjects(){
-  
-    }
+  loadStories() {
+    var $this = this;
+    this.userStories.getUserStories(this.projectId)
+        .subscribe(
+            (userStoryObject:UserStories) => {
+              $this.project = userStoryObject.project;
+              $this.stories = userStoryObject.stories;
+            }, //Bind to view
+             err => {
+                 // Log errors if any
+                 console.log(err);
+             });
   }
+}

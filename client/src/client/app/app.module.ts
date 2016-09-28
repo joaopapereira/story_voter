@@ -15,7 +15,7 @@ import { SessionModule } from './session/session.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  imports: [SimpleNotificationsModule, BrowserModule, HttpModule, RouterModule.forRoot(routes), AboutModule, HomeModule, SessionModule, ProjectModule, SharedModule.forRoot()],
+  imports: [SimpleNotificationsModule, BrowserModule, HttpModule, RouterModule.forRoot(routes), AboutModule, HomeModule, SessionModule, ProjectModule, UserStoriesModule, SharedModule.forRoot()],
   declarations: [AppComponent],
   providers: [{
     provide: APP_BASE_HREF,

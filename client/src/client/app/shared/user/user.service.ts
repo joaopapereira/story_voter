@@ -11,7 +11,7 @@ export class UserService {
   private user: Object;
   private loggedIn = false;
 
-  constructor(private http: Http, 
+  constructor(private http: Http,
               private notifications: NotificationsService,
               private router: Router) {
     let token = localStorage.getItem('id_token');
@@ -81,7 +81,7 @@ export class UserService {
   getUser() {
     return this.user;
   }
-  requireLogin(functionality) {
+  requireLogin(functionality: string) {
     if(!this.isLoggedIn()) {
       this.router.navigate(["/"]);
       this.notifications.alert("Login required", "You need to be logged in to access " + functionality);

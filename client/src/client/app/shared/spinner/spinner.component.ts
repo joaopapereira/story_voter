@@ -4,7 +4,14 @@ import {Component, Input, OnDestroy} from '@angular/core';
 
 @Component({
     selector: 'st-spinner',
-    templateUrl: 'spinner.component.html',
+    //templateUrl: 'spinner.component.html',
+    template: `<div class="spinner">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
+    </div>`,
     styles: ['spinner.component.css']
 })
 export class SpinnerComponent implements OnDestroy {
@@ -26,7 +33,8 @@ export class SpinnerComponent implements OnDestroy {
             return;
         }
 
-        this.currentTimeout = setTimeout(() => {
+        this.currentTimeout = 1;
+        setTimeout(() => {
             this.isDelayedRunning = value;
             this.cancelTimeout();
         }, this.delay);

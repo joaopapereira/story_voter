@@ -8,12 +8,17 @@ import { Project } from '../shared/index';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+interface JSONInterface {
+    [key: string]: any;
+}
+
+
 export class UserStory {
     id: number;
     identifier: string;
     title: string;
     url: string;
-    constructor(info: Object) {
+    constructor(info: JSONInterface) {
         this.id = info["id"];
         this.identifier = info["identifier"];
         this.title = info["title"];
@@ -33,14 +38,15 @@ export class UserStoriesService {
     this.projects = [];
   }
 
-  getUserStories(projectId): Observable<UserStories> {
+  getUserStories(projectId: number): Observable<UserStories> {
     var $this = this;
      return this.http.get("/projects/" + projectId + '/user_stories')
                 .map((res: Response) => res.json())
-                .map((stories: Object) => {
+                .map((stories: JSONInterface) => {
                     let result:UserStories = new UserStories();
                     result.project = new Project(stories["project"]);
-                    stories["stories"].forEach((story) => {
+                    result.stories = [];
+                    stories["stories"].forEach((story: JSONInterface) => {
                         result.stories.push(new UserStory(story));
                     });
                     return result;
