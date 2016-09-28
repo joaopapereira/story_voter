@@ -2,8 +2,9 @@ Rails.application.routes.draw do
 
   resources :projects, :defaults => { :format => 'json' }, only: [:index, :new, :create] do
     resources :user_stories, :defaults => {:format => 'json'}, only: [:index]
+    resources :voting_session, :defaults => {:format => 'json'}, only: [:index, :create]
   end
-  
+
   get 'session_handler/show'
 
   get "/auth/:provider/callback" => "session_handler#create"
